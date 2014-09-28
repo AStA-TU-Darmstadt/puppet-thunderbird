@@ -1,0 +1,13 @@
+{
+  "author": "David Kreitschmann",
+  "dependencies": [],
+  "license": "Apache 2.0",
+  "name": "astatud-thunderbird",
+  "operatingsystem_support": [ {"operatingsystem": "Fedora"}],
+  "project_page": "",
+  "requirements": [],
+  "source": "http://github.com/AStA-TU-Darmstadt/puppet-thunderbird",
+  "summary": "Install Thunderbird, configure IMAP / LDAP with Kerberos",
+  "tags": ["thunderbird"],
+  "version": "0.1.0"
+}

@@ -1,0 +1,88 @@
+try {
+
+
+pref("network.negotiate-auth.trusted-uris", ".asta.tu-darmstadt.de");
+pref("network.negotiate-auth.delegation-uris", ".asta.tu-darmstadt.de");
+
+ 
+var userInfo = new Object(); 
+ 
+userInfo.envUser = getenv("USER");   // USERNAME
+userInfo.envHome = getenv("HOME");       // User home directory
+ 
+var ldapHost = "<%= @ldap_server %>";
+var ldapBase = "<%= @ldap_base %>";
+ 
+if( userInfo.envUser )
+{  var ldapFilter = "uid=" + userInfo.envUser;  }
+else
+{  throw("Couldn't get UID from the environment");  }
+ 
+// LDAP attributes to retrieve from the server
+var ldapAttrs = new Array( "cn", "mail", "uid" ); // add more attributes here, if needed)
+ 
+// Define how to process LDAP results before we make the call
+function processLDAPValues(queryResults)
+{  if( queryResults )
+   {  // Build the userInfo object for later use
+      for( var attr in ldapAttrs )
+      {  userInfo[ ldapAttrs[attr] ] = getLDAPValue( queryResults, ldapAttrs[attr] );  }
+   } else
+   {  throw( "No LDAP results" );  }
+}
+ 
+getLDAPAttributes( ldapHost, ldapBase, ldapFilter, ldapAttrs.join(",") );
+
+lockPref("mail.identity.id1.fullName", userInfo.cn );
+lockPref("mail.identity.id1.smtpServer", "smtp1" );
+lockPref("mail.identity.id1.useremail", userInfo.mail );
+ 
+// IMAP server settings
+lockPref("mail.server.server1.hostname", "<%= @imap_server %>" );
+lockPref("mail.server.server1.name", userInfo.mail );
+lockPref("mail.server.server1.port", 993 );
+lockPref("mail.server.server1.socketType", 3 );
+lockPref("mail.server.server1.type", "imap" );
+lockPref("mail.server.server1.userName", userInfo.uid );
+lockPref("mail.server.server1.authMethod", 5);
+lockPref("mail.server.server1.ageLimit", 30);
+lockPref("mail.server.server1.autosync_max_age_days", 30);
+
+lockPref("mail.server.server1.daysToKeepBodies", 30);
+lockPref("mail.server.server1.daysToKeepHdrs", 30);
+lockPref("mail.server.server1.limit_offline_message_size", true);
+lockPref("mail.server.server1.offline_download", false);
+ 
+// SMTP server settings
+lockPref("mail.smtpserver.smtp1.authMethod", 3 );
+lockPref("mail.smtpserver.smtp1.description", "AStA" );
+lockPref("mail.smtpserver.smtp1.hostname", "<%= @smtp_server %>" );
+lockPref("mail.smtpserver.smtp1.port", 465 );
+lockPref("mail.smtpserver.smtp1.try_ssl", 3 );
+lockPref("mail.smtpserver.smtp1.username", userInfo.uid );
+lockPref("mail.smtpserver.smtp1.authMethod", 5);
+ 
+// Glue it all together
+lockPref("mail.account.account1.identities", "id1" );
+lockPref("mail.account.account1.server", "server1" );
+lockPref("mail.accountmanager.accounts", "account1" );
+lockPref("mail.accountmanager.defaultaccount", "account1" );
+lockPref("mail.smtp.defaultserver", "smtp1" );
+lockPref("mail.smtpservers", "smtp1" );
+
+//LDAP
+
+lockPref("ldap_2.autoComplete.directoryServer", "ldap_2.servers.AStA");
+lockPref("ldap_2.autoComplete.useDirectory", true);
+lockPref("ldap_2.servers.AStA.auth.dn", "");
+lockPref("ldap_2.servers.AStA.auth.saslmech", "GSSAPI");
+lockPref("ldap_2.servers.AStA.description", "AStA");
+lockPref("ldap_2.servers.AStA.filename", "ldap.mab");
+lockPref("ldap_2.servers.AStA.maxHits", 100);
+lockPref("ldap_2.servers.AStA.uri", "<%= @ldap_uri %>");
+
+ 
+// Close the try, and call the catch()
+} catch(e) {
+  displayError("lockedPref", e);
+}

@@ -1,3 +1,4 @@
+//
 try {
 
 
@@ -36,7 +37,7 @@ getLDAPAttributes( ldapHost, ldapBase, ldapFilter, ldapAttrs.join(",") );
 lockPref("mail.identity.id1.fullName", userInfo.cn );
 lockPref("mail.identity.id1.smtpServer", "smtp1" );
 lockPref("mail.identity.id1.useremail", userInfo.mail );
- 
+lockPref("mail.identity.id1.organization", "<%= @organization %>" ); 
 // IMAP server settings
 lockPref("mail.server.server1.hostname", "<%= @imap_server %>" );
 lockPref("mail.server.server1.name", userInfo.mail );
@@ -79,7 +80,7 @@ lockPref("ldap_2.servers.ldap1.auth.saslmech", "GSSAPI");
 lockPref("ldap_2.servers.ldap1.description", "<%= @account_description %>");
 lockPref("ldap_2.servers.ldap1.filename", "ldap1.mab");
 lockPref("ldap_2.servers.ldap1.maxHits", 100);
-lockPref("ldap_2.servers.ldap1.uri", "<%= @ldap_uri %>");
+lockPref("ldap_2.servers.ldap1.uri", "<%= @ldap_dir_uri %>");
 
  
 // Close the try, and call the catch()

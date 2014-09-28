@@ -27,7 +27,7 @@ class thunderbird (
   
   $imap_server = $thunderbird::params::imap_server,
   $smtp_server = $thunderbird::params::smtp_server,
-  $organisation = $thunderbird::params::organisation
+  $organization = $thunderbird::params::organization
   
   
   
@@ -37,7 +37,7 @@ class thunderbird (
     ensure => $package_ensure,
   }
    file { 'thunderbird-cfg.js':
-    path => "${thunderbird_path}${pref_path}/thunderbird-cfg.js",
+    path => "${thunderbird_path}/${pref_path}/thunderbird-cfg.js",
     source => 'puppet:///modules/thunderbird/thunderbird-cfg.js',
     mode => '0644',
     owner => 'root',
@@ -46,7 +46,7 @@ class thunderbird (
   }
  
   file { 'thunderbird.cfg':
-    path => '${pref_path}/thunderbird.cfg',
+    path => "${thunderbird_path}/thunderbird.cfg",
     ensure  => file,
     owner   => 0,
     group   => 0,

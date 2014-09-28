@@ -3,7 +3,7 @@
 
 class thunderbird::params {
   $default_thunderbird_path = '/usr/lib64/thunderbird'
-  $default_pref_path = '/defaults/preferences'
+  $default_pref_path = '/defaults/pref'
   $config_template = 'thunderbird/thunderbird.cfg.erb'
   $package_ensure    = 'present'
   $default_package_name = ['thunderbird']
@@ -15,7 +15,7 @@ class thunderbird::params {
   
   $imap_server = "mail"
   $smtp_server = "mail"
-  $organisation = "Example Inc."
+  $organization = "Example Inc."
   $account_description = "Example"
   
   $kerberos_domain = ".example.com"

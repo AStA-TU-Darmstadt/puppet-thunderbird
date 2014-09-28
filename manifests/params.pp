@@ -16,6 +16,9 @@ class thunderbird::params {
   $imap_server = "mail"
   $smtp_server = "mail"
   $organisation = "Example Inc."
+  $account_description = "Example"
+  
+  $kerberos_domain = ".example.com"
   
   
     case $::osfamily {

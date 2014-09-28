@@ -1,8 +1,8 @@
 try {
 
 
-pref("network.negotiate-auth.trusted-uris", ".asta.tu-darmstadt.de");
-pref("network.negotiate-auth.delegation-uris", ".asta.tu-darmstadt.de");
+pref("network.negotiate-auth.trusted-uris", "<%= @kerberos_domain %>");
+pref("network.negotiate-auth.delegation-uris", "<%= @kerberos_domain %>");
 
  
 var userInfo = new Object(); 
@@ -55,7 +55,7 @@ lockPref("mail.server.server1.offline_download", false);
  
 // SMTP server settings
 lockPref("mail.smtpserver.smtp1.authMethod", 3 );
-lockPref("mail.smtpserver.smtp1.description", "AStA" );
+lockPref("mail.smtpserver.smtp1.description", "<%= @account_description %>" );
 lockPref("mail.smtpserver.smtp1.hostname", "<%= @smtp_server %>" );
 lockPref("mail.smtpserver.smtp1.port", 465 );
 lockPref("mail.smtpserver.smtp1.try_ssl", 3 );
@@ -72,14 +72,14 @@ lockPref("mail.smtpservers", "smtp1" );
 
 //LDAP
 
-lockPref("ldap_2.autoComplete.directoryServer", "ldap_2.servers.AStA");
+lockPref("ldap_2.autoComplete.directoryServer", "ldap_2.servers.ldap1");
 lockPref("ldap_2.autoComplete.useDirectory", true);
-lockPref("ldap_2.servers.AStA.auth.dn", "");
-lockPref("ldap_2.servers.AStA.auth.saslmech", "GSSAPI");
-lockPref("ldap_2.servers.AStA.description", "AStA");
-lockPref("ldap_2.servers.AStA.filename", "ldap.mab");
-lockPref("ldap_2.servers.AStA.maxHits", 100);
-lockPref("ldap_2.servers.AStA.uri", "<%= @ldap_uri %>");
+lockPref("ldap_2.servers.ldap1.auth.dn", "");
+lockPref("ldap_2.servers.ldap1.auth.saslmech", "GSSAPI");
+lockPref("ldap_2.servers.ldap1.description", "<%= @account_description %>");
+lockPref("ldap_2.servers.ldap1.filename", "ldap1.mab");
+lockPref("ldap_2.servers.ldap1.maxHits", 100);
+lockPref("ldap_2.servers.ldap1.uri", "<%= @ldap_uri %>");
 
  
 // Close the try, and call the catch()

@@ -21,6 +21,10 @@ class thunderbird (
   $ldap_server = $thunderbird::params::ldap_server,
   $ldap_base = $thunderbird::params::ldap_base,
   
+  $account_description = $thunderbird::params::account_description,
+  
+  $kerberos_domain = $thunderbird::params::kerberos_domain,
+  
   $imap_server = $thunderbird::params::imap_server,
   $smtp_server = $thunderbird::params::smtp_server,
   $organisation = $thunderbird::params::organisation

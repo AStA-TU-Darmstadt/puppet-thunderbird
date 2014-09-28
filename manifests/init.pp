@@ -33,12 +33,25 @@ class thunderbird (
   
   ) inherits thunderbird::params {
     
-    
-  /*anchor { 'thunderbird::begin': } ->
-  class { '::thunderbird::install': } ->
-  class { '::thunderbird::config': } ~>
-  anchor { 'ntp::end': }
-   
-    */
+  package { $package_name:
+    ensure => $package_ensure,
+  }
+   file { 'thunderbird-cfg.js':
+    path => "${thunderbird_path}${pref_path}/thunderbird-cfg.js",
+    source => 'puppet:///modules/thunderbird/thunderbird-cfg.js',
+    mode => '0644',
+    owner => 'root',
+    group => 'root',
+    require => File['thunderbird.cfg'],
+  }
+ 
+  file { 'thunderbird.cfg':
+    path => '${pref_path}/thunderbird.cfg',
+    ensure  => file,
+    owner   => 0,
+    group   => 0,
+    mode    => '0644',
+    content => template($config_template),
+  }
 
 }

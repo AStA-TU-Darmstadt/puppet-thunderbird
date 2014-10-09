@@ -1,5 +1,9 @@
-# thunderbird #
+# Thunderbird #
 
-This is the thunderbird module. It installs Thunderbird and creates a thunderbird.cfg for autoconfiguration.
+This module installs Thunderbird and creates a thunderbird.cfg for autoconfiguration based on the current user name.
 
-you can provide your own template if you need a different setup.
+It is shipped with a default template with Kerberos authentification for IMAP, SMTP and LDAP, 
+with most settings (server name, organisation, ..) configurable via class parameters.
+
+You can use your own template if you need a different setup.
+

@@ -4,7 +4,8 @@ try {
 
 pref("network.negotiate-auth.trusted-uris", "<%= @kerberos_domain %>");
 pref("network.negotiate-auth.delegation-uris", "<%= @kerberos_domain %>");
-
+pref("toolkit.telemetry.prompted", 2);
+pref("toolkit.telemetry.rejected", true);
  
 var userInfo = new Object(); 
  
@@ -38,6 +39,11 @@ lockPref("mail.identity.id1.fullName", userInfo.cn );
 lockPref("mail.identity.id1.smtpServer", "smtp1" );
 lockPref("mail.identity.id1.useremail", userInfo.mail );
 lockPref("mail.identity.id1.organization", "<%= @organization %>" ); 
+lockPref("mail.identity.id1.fcc_folder", "imap://"+userInfo.uid+"@<%= @imap_server %>/Sent" );
+lockPref("mail.identity.id1.draft_folder", "imap://"+userInfo.uid+"@<%= @imap_server %>/Drafts" );
+
+
+
 // IMAP server settings
 lockPref("mail.server.server1.hostname", "<%= @imap_server %>" );
 lockPref("mail.server.server1.name", userInfo.mail );
@@ -53,6 +59,7 @@ lockPref("mail.server.server1.daysToKeepBodies", 30);
 lockPref("mail.server.server1.daysToKeepHdrs", 30);
 lockPref("mail.server.server1.limit_offline_message_size", true);
 lockPref("mail.server.server1.offline_download", false);
+lockPref("mail.server.server1.spamLevel", 0);
  
 // SMTP server settings
 lockPref("mail.smtpserver.smtp1.authMethod", 3 );
@@ -66,15 +73,15 @@ lockPref("mail.smtpserver.smtp1.authMethod", 5);
 // Glue it all together
 lockPref("mail.account.account1.identities", "id1" );
 lockPref("mail.account.account1.server", "server1" );
-lockPref("mail.accountmanager.accounts", "account1" );
-lockPref("mail.accountmanager.defaultaccount", "account1" );
-lockPref("mail.smtp.defaultserver", "smtp1" );
-lockPref("mail.smtpservers", "smtp1" );
+defaultPref("mail.accountmanager.accounts", "account1" );
+defaultPref("mail.accountmanager.defaultaccount", "account1" );
+defaultPref("mail.smtp.defaultserver", "smtp1" );
+defaultPref("mail.smtpservers", "smtp1" );
 
 //LDAP
 
-lockPref("ldap_2.autoComplete.directoryServer", "ldap_2.servers.ldap1");
-lockPref("ldap_2.autoComplete.useDirectory", true);
+defaultPref("ldap_2.autoComplete.directoryServer", "ldap_2.servers.ldap1");
+defaultPref("ldap_2.autoComplete.useDirectory", true);
 lockPref("ldap_2.servers.ldap1.auth.dn", "");
 lockPref("ldap_2.servers.ldap1.auth.saslmech", "GSSAPI");
 lockPref("ldap_2.servers.ldap1.description", "<%= @account_description %>");

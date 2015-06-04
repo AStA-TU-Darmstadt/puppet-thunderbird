@@ -6,6 +6,7 @@ pref("network.negotiate-auth.trusted-uris", "<%= @kerberos_domain %>");
 pref("network.negotiate-auth.delegation-uris", "<%= @kerberos_domain %>");
 pref("toolkit.telemetry.prompted", 2);
 pref("toolkit.telemetry.rejected", true);
+pref("storage.nfs_filesystem", true);
  
 var userInfo = new Object(); 
  
@@ -14,6 +15,8 @@ userInfo.envHome = getenv("HOME");       // User home directory
  
 var ldapHost = "<%= @ldap_server %>";
 var ldapBase = "<%= @ldap_base %>";
+
+pref("browser.cache.disk.parent_directory", "/tmp/thunderbird-"+userInfo.envUser);
  
 if( userInfo.envUser )
 {  var ldapFilter = "uid=" + userInfo.envUser;  }

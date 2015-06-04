@@ -3,8 +3,10 @@
   "dependencies": [],
   "license": "Apache 2.0",
   "name": "neffs-thunderbird",
-  "operatingsystem_support": [ {"operatingsystem": "Fedora"}],
-  "project_page": "",
+  "operatingsystem_support": [ {"operatingsystem": "Fedora",
+  								"operatingsystemrelease": ["20"]
+  }],
+  "project_page": "https://forge.puppetlabs.com/neffs/thunderbird",
   "requirements": [],
   "source": "http://github.com/neffs/puppet-thunderbird",
   "summary": "Install Thunderbird, configure IMAP / LDAP with Kerberos",
